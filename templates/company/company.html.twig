@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Data for {{ company.getNumeFirme }} company.</h1>
+    <ul>
+      <li>   
+            <img src={{ company.getLogo }} alt={{ company.getNumeFirme }} width="100" height="50"> 
+        </li>
+        <li>{{ company.getNumeFirme }}</li>
+        <li> {{ company.getAdresa }}</li> 
+        <li>{{ company.getCategorie }}</li>
+       
+    </ul>
+    <button type="button" onclick="backToAllCompany()">Back</button>
+    <script>
+     function backToAllCompany() {
+            window.location.href = '/tot?page=1&query%5Bq%5D=pageSize';
+        }
+    </script>
+{% endblock %}
