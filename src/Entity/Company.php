@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\CompanysRepository;
+use App\Repository\CompanyRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CompanysRepository::class)]
-class Companys
+#[ORM\Entity(repositoryClass: CompanyRepository::class)]
+#[ORM\Table(name: "companies")]
+class Company
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,66 +29,55 @@ class Companys
     #[ORM\Column(nullable: true)]
     private ?int $Vizualizare = null;
 
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getNumeFirme(): ?string
-    {
+    public function getNumeFirme(): ?string {
         return $this->NumeFirme;
     }
 
-    public function setNumeFirme(string $NumeFirme): static
-    {
+    public function setNumeFirme(string $NumeFirme): static {
         $this->NumeFirme = $NumeFirme;
 
         return $this;
     }
 
-    public function getAdresa(): ?string
-    {
+    public function getAdresa(): ?string {
         return $this->Adresa;
     }
 
-    public function setAdresa(string $Adresa): static
-    {
+    public function setAdresa(string $Adresa): static {
         $this->Adresa = $Adresa;
 
         return $this;
     }
 
-    public function getCategorie(): ?string
-    {
+    public function getCategorie(): ?string {
         return $this->Categorie;
     }
 
-    public function setCategorie(string $Categorie): static
-    {
+    public function setCategorie(string $Categorie): static {
         $this->Categorie = $Categorie;
 
         return $this;
     }
 
-    public function getLogo(): ?string
-    {
+    public function getLogo(): ?string {
         return $this->Logo;
     }
 
-    public function setLogo(string $Logo): static
-    {
+    public function setLogo(string $Logo): static {
         $this->Logo = $Logo;
 
         return $this;
     }
 
-    public function getVizualizare(): ?int
-    {
+    public function getVizualizare(): ?int {
         return $this->Vizualizare;
     }
 
-    public function setVizualizare(?int $Vizualizare): static
-    {
+    public function setVizualizare(?int $Vizualizare): static {
         $this->Vizualizare = $Vizualizare;
 
         return $this;

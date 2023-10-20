@@ -7,7 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use App\Entity\Companys;
+use App\Entity\Company;
 
 class CompanyType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options): void {
@@ -22,7 +22,7 @@ class CompanyType extends AbstractType {
 
     public function configureOptions(OptionsResolver $resolver): void {
         $resolver->setDefaults([
-            'data_class' => Companys::class,
+            'data_class' => Company::class,
         ]);
     }
 }

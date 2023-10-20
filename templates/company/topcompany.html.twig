@@ -2,25 +2,11 @@
 
 {% block body %}
     <h1 class="text-center text-4xl">Top Companies</h1>
-     {% include 'company/list.html.twig' with {
+    {% include 'company/list.html.twig' with {
                 'companies': companies,
-            }%}
-    <button type="button" onclick="backToAllCompany()">Back</button>
-    <script>
-        function editCompany(id) {
-            window.location.href = '/editare/' + id;
-        }
-        function deleteCompany(id) {
-            window.location.href = '/delete/' + id;
-        }
-        function addCompany() {
-            window.location.href = '/adaugare/';
-        }
-        function View(id) {
-            window.location.href = '/paginacompanie/' + id;
-        }
-        function backToAllCompany() {
-            window.location.href = '/?page=1&query%5Bq%5D=pageSize';
-        }
-    </script>
+                'currentPage' : currentPage,
+                'totalPages' : totalPages,
+                'route' : route,
+                'size' : size
+    } %}
 {% endblock %}

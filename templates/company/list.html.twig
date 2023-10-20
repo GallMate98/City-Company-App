@@ -1,23 +1,43 @@
 {% block body %}
 <div class="bg-white p-4 flex flex-col gap-2 shadow-lg items-center">
- <ul class="w-1/3">
-        {% for company in companies %}
-        <div class="gap-3 border-8 ">
-           <li>
-              <img src="{{ company.getLogo }}" alt="{{ company.getNumeFirme }}" width="50" height="50">
-           </li>
-            <li class="inline-block font-semibold text-lg">
-              {{ company.getNumeFirme }} 
-            </li>
-            <li>
-              <button type="button" onclick="editCompany({{ company.id }})" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Update</button>
-              <button type="button" onclick="deleteCompany({{ company.id }})" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
-              <button type="button" onclick="View({{ company.id }})" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Vizualizare</button>
-            </li>
-          </div>
-
-        {% endfor %}
-    </ul>
+  <ul class="w-1/3">
+    {% for company in companies %}
+    <div class="gap-3 border-8 ">
+      <li>
+        <img src="{{ company.getLogo }}" onerror="this.src='{{asset("images/defaultcompanylogo.jpg") }}'" alt="{{ company.getNumeFirme }}" width="80" height="80"/>
+      </li>
+      <li class="inline-block font-semibold text-lg">
+        {{ company.getNumeFirme }} 
+      </li>
+      <li>
+          {% if visualization %}
+          Vizualizare: {{company.getVizualizare}}
+          {% endif %}
+        </li>
+      <li>
+        <button type="button" onclick="editCompany({{ company.id }})" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Update</button>
+        <button type="button" onclick="deleteCompany({{ company.id }})" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
+        <button type="button" onclick="View({{ company.id }})" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Vizualizare</button>
+      </li>
+    </div>
+    {% endfor %}
+  </ul>
+  {% include 'company/pagination.html.twig' with {
+              'currentPage' : currentPage,
+              'totalPages' : totalPages,
+              'route' : route,
+              'size' : size
+  } %}
 </div>
-
+<script>
+      function editCompany(id) {
+          window.location.href = '/edit/' + id;
+      }
+      function deleteCompany(id) {
+          window.location.href = '/delete/' + id;
+      }
+      function View(id) {
+          window.location.href = '/company/' + id;
+      }
+</script>
 {% endblock %}

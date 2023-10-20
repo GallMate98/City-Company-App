@@ -1,58 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div>
-        <h1 class="text-center text-4xl">All Companies</h1>
+    <div class="text-center">
+        <h1 class="text-4xl">All Companies</h1>
     </div>
     
     {% include 'company/list.html.twig' with {
-                'companies': companies,
-            }%}
-
-   
-    {% if numberPage > 1 %}
-        {# Number of page around current page+1 #}
-        {% set nearbyPagesLimit = 2 %}
-         <div>
-            <ul class="flex justify-center">
-                {% if currentPage != 1 %}
-                <li>
-                    <a class="mx-1 flex h-9 w-9 items-center justify-center rounded-full border border-blue-gray-100 bg-transparent p-0 text-sm text-blue-gray-500 transition duration-150 ease-in-out hover:bg-light-300" href="{{ path(url, { 'page': 1, 'size': size }) }}">First</a>
-                </li>
-                {% endif %}
-                {% for i in 1..numberPage %}
-                    {% if 0 == (currentPage - nearbyPagesLimit) - loop.index %} 
-                        <li ><a class="mx-1 flex h-9 w-9 items-center justify-center rounded-full border border-blue-gray-100 bg-transparent p-0 text-sm text-blue-gray-500 transition duration-150 ease-in-out hover:bg-light-300" href="#">...</a></li>
-                    {% elseif 0 == (currentPage + nearbyPagesLimit) - loop.index %} 
-                        <li><a class="mx-1 flex h-9 w-9 items-center justify-center rounded-full border border-blue-gray-100 bg-transparent p-0 text-sm text-blue-gray-500 transition duration-150 ease-in-out hover:bg-light-300" href="#">...</a></li>
-                    {% elseif 0 < (currentPage - nearbyPagesLimit) - loop.index %} {# hide all before #}
-                    {% elseif 0 > (currentPage + nearbyPagesLimit) - loop.index %} {# hide all after #}
-                    {% else %}
-                        <li {% if currentPage == loop.index  %} class="active"{% endif %}>
-                            <a class="mx-1 flex h-9 w-9 items-center justify-center rounded-full border border-blue-gray-100 bg-transparent p-0 text-sm text-blue-gray-500 transition duration-150 ease-in-out hover:bg-light-300" href="{{ path(url, { 'page': loop.index, 'size': size }) }}">{{ loop.index }}</a>
-                        </li>
-                    {% endif %}
-                {% endfor %}
-                {% if currentPage != numberPage %}
-                <li>
-                    <a class="mx-1 flex h-9 w-9 items-center justify-center rounded-full border border-blue-gray-100 bg-transparent p-0 text-sm text-blue-gray-500 transition duration-150 ease-in-out hover:bg-light-300" href="{{ path(url, { 'page': numberPage, 'size': size }) }}">Last</a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-    {% endif %}
-    
-     <script>
-        function editCompany(id) {
-            window.location.href = '/editare/' + id;
-        }
-         function deleteCompany(id) {
-            window.location.href = '/delete/' + id;
-        }
-       
-        function View(id) {
-            window.location.href = '/paginacompanie/'+id;
-        }
-    
-    </script>
+        'companies': companies,
+        'currentPage' : currentPage,
+        'totalPages' : totalPages,
+        'route' : route,
+        'size' : size
+    } %}
 {% endblock %}

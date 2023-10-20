@@ -12,14 +12,13 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
-       
-         <nav class="p-4 flex items-center justify-between border-b-2 border-b-black">
-        <div class="text-sm font-bold flex items-center gap-2">
-            <a class="text-blue-700" href="./">Home</a>
-            <a href="./adaugare">Add new Company</a>
-            <a href="./topvizualizare">Top Companys</a>
-        </div>
+    <body>     
+        <nav class="p-4 flex items-center justify-between border-b-2 border-b-black">
+            <div class="text-sm font-bold flex items-center gap-2">
+                <a href="./">Home</a>
+                <a href="http://127.0.0.1:8000/add">Add new Company</a>
+                <a href="http://127.0.0.1:8000/top-view">Top Companies</a>
+            </div>
         </nav>
         {% block body %}
         {% endblock %}
