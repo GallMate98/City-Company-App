@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CompanyRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CompanyRepository::class)]
@@ -28,6 +30,14 @@ class Company
 
     #[ORM\Column(nullable: true)]
     private ?int $Vizualizare = null;
+
+    #[ORM\OneToMany(mappedBy: 'data', targetEntity: DateView::class)]
+    private Collection $dateview;
+
+    public function __construct()
+    {
+        $this->dateview = new ArrayCollection();
+    }
 
     public function getId(): ?int {
         return $this->id;
@@ -79,6 +89,36 @@ class Company
 
     public function setVizualizare(?int $Vizualizare): static {
         $this->Vizualizare = $Vizualizare;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DateView>
+     */
+    public function getDateview(): Collection
+    {
+        return $this->dateview;
+    }
+
+    public function addDateview(DateView $dateview): static
+    {
+        if (!$this->dateview->contains($dateview)) {
+            $this->dateview->add($dateview);
+            $dateview->setData($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDateview(DateView $dateview): static
+    {
+        if ($this->dateview->removeElement($dateview)) {
+            // set the owning side to null (unless already changed)
+            if ($dateview->getData() === $this) {
+                $dateview->setData(null);
+            }
+        }
 
         return $this;
     }
